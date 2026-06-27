@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Índice Brasileiro de Conectividade</title><link rel="stylesheet" href="styles.css"></head>
+<body class="static-deck"><main class="deck">
+<section class="slide cover-slide" data-title="Índice Brasileiro de Conectividade"><h1>Índice Brasileiro de Conectividade</h1>
+<div class="hero-grid">
+<div>
+<p class="kicker">Modelos Lineares I · Regressão Linear Múltipla</p>
+<h1>Índice Brasileiro de Conectividade</h1>
+<p class="subtitle-main">Fatores associados ao IBC dos municípios brasileiros</p>
+<p class="meta">Base pública da Anatel · 2021 a 2024</p>
+<p class="meta">Milena Branco Labre de Oliveira Rodrigues</p>
+</div>
+<div class="big-card">
+<div class="num">22.280</div>
+<div class="label">observações município-ano</div>
+<div class="num small">5.570</div>
+<div class="label">municípios por ano</div>
+</div>
+</div>
+</section>
+<section class="slide" data-title="Introdução: por que estudar conectividade?"><h1>Introdução: por que estudar conectividade?</h1>
+<span class="section-pill">Introdução</span>
+
+<div class="cards3">
+<div class="card"><h3>Inclusão digital</h3><p>A conectividade é condição para acesso a estudo, trabalho, serviços públicos e informação.</p></div>
+<div class="card"><h3>Desigualdade territorial</h3><p>Municípios e UFs podem apresentar níveis diferentes de infraestrutura digital.</p></div>
+<div class="card"><h3>Questão estatística</h3><p>O IBC permite investigar quais dimensões de infraestrutura e competitividade se associam ao desempenho municipal.</p></div>
+</div>
+</section>
+<section class="slide" data-title="Problema de pesquisa"><h1>Problema de pesquisa</h1>
+<span class="section-pill">Introdução</span>
+
+<div class="question">Quais fatores de infraestrutura e competitividade estão associados ao Índice Brasileiro de Conectividade dos municípios brasileiros entre 2021 e 2024?</div>
+
+<div class="note"><b>Hipótese inicial:</b> maior cobertura 4G/5G, presença de fibra e densidade de serviços devem estar associadas a maiores valores de IBC.</div>
+</section>
+<section class="slide" data-title="Objetivo do estudo"><h1>Objetivo do estudo</h1>
+<span class="section-pill">Introdução</span>
+
+<div class="cards2">
+<div class="card highlight"><h3>Objetivo geral</h3><p>Ajustar um modelo de regressão linear múltipla para explicar diferenças no IBC municipal.</p></div>
+<div class="card"><h3>Objetivos específicos</h3><p>Descrever as variáveis, avaliar gráficos de dispersão, ajustar modelos, examinar summary, ANOVA, FIV e resíduos.</p></div>
+</div>
+</section>
+<section class="slide" data-title="Material: base de dados"><h1>Material: base de dados</h1>
+<span class="section-pill">Material e Métodos</span>
+
+<div class="cards4">
+<div class="metric"><b>Fonte</b><span>Anatel</span></div>
+<div class="metric"><b>Unidade</b><span>Município-ano</span></div>
+<div class="metric"><b>Período</b><span>2021-2024</span></div>
+<div class="metric"><b>N</b><span>22.280</span></div>
+</div>
+
+<div class="note" style="margin-top:34px;">A base utilizada não é nativa do R. Ela reúne informações municipais sobre o Índice Brasileiro de Conectividade e indicadores de infraestrutura e competitividade.</div>
+</section>
+<section class="slide" data-title="Variáveis utilizadas"><h1>Variáveis utilizadas</h1>
+<span class="section-pill">Material e Métodos</span>
+
+<div class="cards3">
+<div class="card highlight"><h3>Variável resposta</h3><p><b>ibc</b><br>Índice Brasileiro de Conectividade.</p></div>
+<div class="card"><h3>Infraestrutura</h3><p>cobertura_pop_4g5g, fibra, densidade_smp, densidade_scm e adensamento_estacoes.</p></div>
+<div class="card"><h3>Competitividade e tempo</h3><p>hhi_smp, hhi_scm e ano da observação.</p></div>
+</div>
+</section>
+<section class="slide" data-title="Metodologia adotada"><h1>Metodologia adotada</h1>
+<span class="section-pill">Material e Métodos</span>
+
+<div class="formula">y = Xβ + ε</div>
+
+<div class="cards2">
+<div class="card"><h3>Modelo linear múltiplo</h3><p>O IBC foi modelado como função linear das variáveis explicativas, incluindo controle temporal por ano.</p></div>
+<div class="card"><h3>Estimação e diagnóstico</h3><p>Foram usados mínimos quadrados, summary, ANOVA, FIV, resíduos, QQ-plot e distância de Cook.</p></div>
+</div>
+</section>
+<section class="slide" data-title="Forma do modelo final"><h1>Forma do modelo final</h1>
+<span class="section-pill">Material e Métodos</span>
+
+<div class="formula model">IBC = β0 + β1 Cobertura4G/5G + β2 Fibra + β3 Dens.SMP + β4 HHI.SMP + β5 Dens.SCM + β6 HHI.SCM + β7 Estações + Ano + ε</div>
+
+<div class="note">As variáveis quantitativas foram padronizadas no modelo final para facilitar a comparação da magnitude dos coeficientes.</div>
+</section>
+<section class="slide" data-title="Dispersão: IBC e fibra"><h1>Dispersão: IBC e fibra</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="plot"><img src="figs/scatter_fibra.png"></div>
+<p class="caption">A relação positiva sugere que municípios com maior presença de fibra tendem a apresentar maiores valores de IBC.</p>
+</section>
+<section class="slide" data-title="Dispersão: IBC e cobertura 4G/5G"><h1>Dispersão: IBC e cobertura 4G/5G</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="plot"><img src="figs/scatter_4g5g.png"></div>
+<p class="caption">A cobertura móvel apresenta associação positiva com o índice de conectividade.</p>
+</section>
+<section class="slide" data-title="Distribuição do IBC"><h1>Distribuição do IBC</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="plot"><img src="figs/hist_ibc.png"></div>
+<p class="caption">A distribuição mostra concentração em valores intermediários, com municípios em níveis baixos e altos de conectividade.</p>
+</section>
+<section class="slide" data-title="IBC por ano"><h1>IBC por ano</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="plot"><img src="figs/box_ano.png"></div>
+<p class="caption">A comparação por ano justifica a inclusão do controle temporal no modelo.</p>
+</section>
+<section class="slide" data-title="Saída do R: summary(modelo_final)"><h1>Saída do R: summary(modelo_final)</h1>
+<span class="section-pill">Resultados</span>
+
+<pre class="console">Call:
+lm(formula = ibc ~ cobertura_pop_4g5g_z + fibra_z + densidade_smp_z +
+    hhi_smp_z + densidade_scm_z + hhi_scm_z + adensamento_estacoes_z + ano,
+    data = dados)
+
+Residual standard error: 1.888 on 22269 degrees of freedom
+Multiple R-squared: 0.9815,    Adjusted R-squared: 0.9815
+F-statistic: 1.179e+05 on 10 and 22269 DF,  p-value: < 2.2e-16</pre>
+
+<div class="cards4 smallcards">
+<div class="metric"><b>R² ajustado</b><span>0,9815</span></div>
+<div class="metric"><b>Erro residual</b><span>1,888</span></div>
+<div class="metric"><b>F global</b><span>117.920</span></div>
+<div class="metric"><b>p-valor</b><span>&lt; 2,2e-16</span></div>
+</div>
+</section>
+<section class="slide" data-title="Coeficientes: summary(modelo_final)"><h1>Coeficientes: summary(modelo_final)</h1>
+<span class="section-pill">Resultados</span>
+
+<table class="tbl compact"><thead><tr><th>Termo</th><th>Estimativa</th><th>Erro padrão</th><th>t</th><th>p-valor</th></tr></thead><tbody>
+<tr><td>Intercepto</td><td>51,758</td><td>0,027</td><td>1940,4</td><td>&lt;0,001</td></tr>
+<tr><td>Ano 2022</td><td>0,109</td><td>0,037</td><td>3,0</td><td>0,003</td></tr>
+<tr><td>Ano 2023</td><td>-0,013</td><td>0,037</td><td>-0,4</td><td>0,715</td></tr>
+<tr><td>Ano 2024</td><td>0,496</td><td>0,046</td><td>10,7</td><td>&lt;0,001</td></tr>
+<tr><td>Cobertura 4G/5G (z)</td><td>3,631</td><td>0,016</td><td>226,2</td><td>&lt;0,001</td></tr>
+<tr><td>Fibra (z)</td><td>7,783</td><td>0,014</td><td>553,9</td><td>&lt;0,001</td></tr>
+<tr><td>Densidade SMP (z)</td><td>3,393</td><td>0,017</td><td>195,8</td><td>&lt;0,001</td></tr>
+<tr><td>HHI SMP (z)</td><td>1,623</td><td>0,014</td><td>113,9</td><td>&lt;0,001</td></tr>
+<tr><td>Densidade SCM (z)</td><td>2,812</td><td>0,016</td><td>172,9</td><td>&lt;0,001</td></tr>
+<tr><td>HHI SCM (z)</td><td>1,247</td><td>0,013</td><td>95,7</td><td>&lt;0,001</td></tr>
+<tr><td>Adensamento estações (z)</td><td>2,429</td><td>0,016</td><td>151,4</td><td>&lt;0,001</td></tr>
+</tbody></table>
+</section>
+<section class="slide" data-title="ANOVA do modelo final"><h1>ANOVA do modelo final</h1>
+<span class="section-pill">Resultados</span>
+
+<table class="tbl small"><thead><tr><th>Fonte</th><th>SQ</th><th>gl</th><th>F</th><th>p-valor</th></tr></thead><tbody>
+<tr><td>Ano</td><td>493,8</td><td>3</td><td>46,2</td><td>&lt;0,001</td></tr>
+<tr><td>Cobertura 4G/5G</td><td>182.334,3</td><td>1</td><td>51.149,7</td><td>&lt;0,001</td></tr>
+<tr><td>Fibra</td><td>1.093.803,5</td><td>1</td><td>306.841,3</td><td>&lt;0,001</td></tr>
+<tr><td>Densidade SMP</td><td>136.706,8</td><td>1</td><td>38.349,9</td><td>&lt;0,001</td></tr>
+<tr><td>HHI SMP</td><td>46.227,7</td><td>1</td><td>12.968,1</td><td>&lt;0,001</td></tr>
+<tr><td>Densidade SCM</td><td>106.555,6</td><td>1</td><td>29.891,7</td><td>&lt;0,001</td></tr>
+<tr><td>HHI SCM</td><td>32.619,3</td><td>1</td><td>9.150,6</td><td>&lt;0,001</td></tr>
+<tr><td>Adensamento estações</td><td>81.666,7</td><td>1</td><td>22.909,7</td><td>&lt;0,001</td></tr>
+<tr><td>Resíduo</td><td>79.382,8</td><td>22269</td><td></td><td></td></tr>
+</tbody></table>
+</section>
+<section class="slide" data-title="Multicolinearidade: FIV"><h1>Multicolinearidade: FIV</h1>
+<span class="section-pill">Resultados</span>
+
+<table class="tbl"><thead><tr><th>Variável</th><th>FIV</th><th>Leitura</th></tr></thead><tbody>
+<tr><td>Cobertura 4G/5G</td><td>1,61</td><td>sem problema relevante</td></tr>
+<tr><td>Fibra</td><td>1,21</td><td>sem problema relevante</td></tr>
+<tr><td>Densidade SMP</td><td>1,56</td><td>sem problema relevante</td></tr>
+<tr><td>HHI SMP</td><td>1,25</td><td>sem problema relevante</td></tr>
+<tr><td>Densidade SCM</td><td>1,32</td><td>sem problema relevante</td></tr>
+<tr><td>HHI SCM</td><td>1,06</td><td>sem problema relevante</td></tr>
+<tr><td>Adensamento de estações</td><td>1,20</td><td>sem problema relevante</td></tr>
+</tbody></table>
+
+<div class="note">Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática.</div>
+</section>
+<section class="slide" data-title="Diagnóstico: observados x ajustados"><h1>Diagnóstico: observados x ajustados</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="plot"><img src="figs/obs_fit.png"></div>
+<p class="caption">A proximidade dos pontos com a diagonal confirma visualmente o bom ajuste do modelo.</p>
+</section>
+<section class="slide" data-title="Gráfico de resíduos"><h1>Gráfico de resíduos</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="plot"><img src="figs/resid_fit.png"></div>
+<p class="caption">O gráfico avalia padrões sistemáticos, heterocedasticidade e possíveis desvios de ajuste.</p>
+</section>
+<section class="slide" data-title="Normalidade e pontos influentes"><h1>Normalidade e pontos influentes</h1>
+<span class="section-pill">Resultados</span>
+
+<div class="two-plots"><img src="figs/qq.png"><img src="figs/cook.png"></div>
+<p class="caption">O QQ-plot apresenta desvios nas caudas, esperados em bases municipais grandes. A distância de Cook auxilia na identificação de observações influentes.</p>
+</section>
+<section class="slide" data-title="Conclusões"><h1>Conclusões</h1>
+<span class="section-pill">Conclusão</span>
+
+<div class="cards2">
+<div class="card"><h3>Principais achados</h3><p>Fibra, cobertura 4G/5G, densidades SMP/SCM e adensamento de estações apresentaram associação positiva com o IBC.</p></div>
+<div class="card"><h3>Modelo final</h3><p>O modelo apresentou alto poder explicativo, com R² ajustado igual a <b>0,9815</b>.</p></div>
+</div>
+
+<div class="note" style="margin-top:24px;"><b>Limitação:</b> os resultados indicam associação estatística. Não se conclui causalidade apenas pelo ajuste de regressão linear.</div>
+</section>
+</main><div class="slide-number" id="slideNumber"></div><div class="nav"><button onclick="prevSlide()">◀</button><button onclick="nextSlide()">▶</button></div><script>
+const slides=Array.from(document.querySelectorAll('.slide'));let cur=0;function show(i){cur=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,j)=>s.classList.toggle('active',j===cur));document.getElementById('slideNumber').textContent=(cur+1)+' / '+slides.length;location.hash=String(cur+1);}function nextSlide(){show(cur+1)}function prevSlide(){show(cur-1)}document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key))nextSlide();if(['ArrowLeft','PageUp','Backspace'].includes(e.key))prevSlide();});window.addEventListener('hashchange',()=>{let n=parseInt(location.hash.replace('#',''));if(!isNaN(n))show(n-1)});let start=parseInt(location.hash.replace('#',''));show(isNaN(start)?0:start-1);
+</script></body></html>
