@@ -95,43 +95,21 @@ modelo_final <- lm(
 
 <span class="section-pill">Introdução</span>
 
-<div class="cards2">
-
 <div class="card">
-
-<h3>Importância da conectividade</h3>
 
 <p>
 
-A literatura e os relatórios da Anatel destacam que a conectividade é um elemento fundamental para o acesso à informação, educação, serviços públicos digitais e oportunidades econômicas.
+A conectividade digital tem sido amplamente estudada por sua relação com o acesso à informação, educação, serviços públicos digitais e desenvolvimento econômico.
+
+No Brasil, a Anatel desenvolveu o Índice Brasileiro de Conectividade (IBC) para monitorar e comparar os níveis de conectividade dos municípios e estados brasileiros.
 
 </p>
-
-</div>
-
-<div class="card">
-
-<h3>Índice Brasileiro de Conectividade</h3>
-
-<p>
-
-O IBC foi desenvolvido pela Anatel para comparar os estágios de conectividade dos municípios e estados brasileiros a partir de indicadores de infraestrutura e acesso aos serviços de telecomunicações.
-
-</p>
-
-</div>
 
 </div>
 
 <div class="note">
 
-Segundo a Anatel, o IBC constitui uma ferramenta objetiva para monitorar a evolução da infraestrutura digital, comparar municípios ao longo do tempo e subsidiar políticas públicas voltadas à expansão da conectividade no Brasil.
-
-</div>
-
-<div class="ref-slide">
-
-<b>Fonte:</b> Anatel (2025), Índice Brasileiro de Conectividade; Anatel (2025), Análise dos Resultados do IBC.
+Fonte: Anatel (2025), Índice Brasileiro de Conectividade (IBC).
 
 </div>
 ## Problema de pesquisa
@@ -162,7 +140,7 @@ Segundo a Anatel, o IBC constitui uma ferramenta objetiva para monitorar a evolu
 <div class="metric"><b>N</b><span>22.280</span></div>
 </div>
 
-<div class="note" style="margin-top:34px;">A base utilizada não é nativa do R. Ela reúne informações municipais sobre o Índice Brasileiro de Conectividade e indicadores de infraestrutura e competitividade.</div>
+<div class="note" style="margin-top:34px;">A base utilizada não é nativa do R e contém observações para todos os municípios brasileiros entre 2021 e 2024, totalizando 22.280 observações município-ano.</div>
 
 ## Variáveis utilizadas
 
@@ -170,7 +148,18 @@ Segundo a Anatel, o IBC constitui uma ferramenta objetiva para monitorar a evolu
 
 <div class="cards3">
 <div class="card highlight"><h3>Variável resposta</h3><p><b>ibc</b><br>Índice Brasileiro de Conectividade.</p></div>
-<div class="card"><h3>Infraestrutura</h3><p>cobertura_pop_4g5g, fibra, densidade_smp, densidade_scm e adensamento_estacoes.</p></div>
+<div class="card">
+<h3>Infraestrutura</h3>
+
+<ul>
+<li>Cobertura populacional 4G/5G</li>
+<li>Fibra óptica</li>
+<li>Densidade SMP</li>
+<li>Densidade SCM</li>
+<li>Adensamento de estações</li>
+</ul>
+
+</div>
 <div class="card"><h3>Competitividade e tempo</h3><p>hhi_smp, hhi_scm e ano da observação.</p></div>
 </div>
 
@@ -387,13 +376,9 @@ As variáveis explicativas apresentam contribuição estatisticamente significat
 <tr><td>Adensamento de estações</td><td>1,20</td><td>sem problema relevante</td></tr>
 </tbody></table>
 
-<div class="note">Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática.</div>
+<div class="note">Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática.
+Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code>car</code> no R.</div>
 
-<div class="note">
-
-Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code>car</code> no R.
-
-</div>
 ## Diagnóstico: observados x ajustados
 
 <span class="section-pill">Resultados</span>
@@ -403,7 +388,6 @@ Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code
 
 ## Gráfico de resíduos
 
-<span class="section-pill">Resultados</span>
 
 <div class="plot"><img src="figs/resid_fit.png"></div>
 <p class="caption">Os resíduos permanecem centrados em torno de zero e não apresentam padrão sistemático evidente. Observa-se, entretanto, variação da dispersão ao longo dos valores ajustados, indicando possível heterocedasticidade.</p>
@@ -443,7 +427,6 @@ Apesar disso, devido ao grande tamanho amostral (n = 22.280), os coeficientes pe
 
 ## Normalidade e pontos influentes
 
-<span class="section-pill">Resultados</span>
 
 <div class="two-plots"><img src="figs/qq.png"><img src="figs/cook.png"></div>
 
@@ -451,9 +434,7 @@ Apesar disso, devido ao grande tamanho amostral (n = 22.280), os coeficientes pe
 
 O QQ-plot indica desvios da normalidade nas caudas dos resíduos.
 
-Como a amostra possui mais de 22 mil observações, esses desvios não comprometem a avaliação global do modelo.
-
-As distâncias de Cook apresentaram valores baixos, não indicando observações excessivamente influentes.
+Devido ao grande tamanho amostral (n = 22.280), pequenos desvios da normalidade possuem impacto reduzido sobre as inferências do modelo.
 
 </p>
 
@@ -528,6 +509,9 @@ O teste de Breusch-Pagan indicou heterocedasticidade nos resíduos.
 
 Além disso, os resultados representam associações estatísticas e não permitem concluir relações de causalidade.
 
+<p>
+Os resultados sugerem que investimentos em infraestrutura digital estão fortemente associados a melhores níveis de conectividade municipal.
+</p>
 </div>
 ##
 Fim

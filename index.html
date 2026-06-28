@@ -212,29 +212,14 @@ O IBC permite investigar quais dimensões de infraestrutura e competitividade se
 <section id="o-tema-na-literatura" class="slide level2">
 <h2>O tema na literatura</h2>
 <p><span class="section-pill">Introdução</span></p>
-<div class="cards2">
 <div class="card">
-<h3>
-Importância da conectividade
-</h3>
 <p>
-</p><p>A literatura e os relatórios da Anatel destacam que a conectividade é um elemento fundamental para o acesso à informação, educação, serviços públicos digitais e oportunidades econômicas.</p>
+</p><p>A conectividade digital tem sido amplamente estudada por sua relação com o acesso à informação, educação, serviços públicos digitais e desenvolvimento econômico.</p>
+<p>No Brasil, a Anatel desenvolveu o Índice Brasileiro de Conectividade (IBC) para monitorar e comparar os níveis de conectividade dos municípios e estados brasileiros.</p>
 <p></p>
-</div>
-<div class="card">
-<h3>
-Índice Brasileiro de Conectividade
-</h3>
-<p>
-</p><p>O IBC foi desenvolvido pela Anatel para comparar os estágios de conectividade dos municípios e estados brasileiros a partir de indicadores de infraestrutura e acesso aos serviços de telecomunicações.</p>
-<p></p>
-</div>
 </div>
 <div class="note">
-<p>Segundo a Anatel, o IBC constitui uma ferramenta objetiva para monitorar a evolução da infraestrutura digital, comparar municípios ao longo do tempo e subsidiar políticas públicas voltadas à expansão da conectividade no Brasil.</p>
-</div>
-<div class="ref-slide">
-<p><b>Fonte:</b> Anatel (2025), Índice Brasileiro de Conectividade; Anatel (2025), Análise dos Resultados do IBC.</p>
+<p>Fonte: Anatel (2025), Índice Brasileiro de Conectividade (IBC).</p>
 </div>
 </section>
 <section id="problema-de-pesquisa" class="slide level2">
@@ -287,7 +272,7 @@ Descrever as variáveis, avaliar gráficos de dispersão, ajustar modelos, exami
 </div>
 </div>
 <div class="note" style="margin-top:34px;">
-A base utilizada não é nativa do R. Ela reúne informações municipais sobre o Índice Brasileiro de Conectividade e indicadores de infraestrutura e competitividade.
+A base utilizada não é nativa do R e contém observações para todos os municípios brasileiros entre 2021 e 2024, totalizando 22.280 observações município-ano.
 </div>
 </section>
 <section id="variáveis-utilizadas" class="slide level2">
@@ -306,9 +291,23 @@ Variável resposta
 <h3>
 Infraestrutura
 </h3>
-<p>
-cobertura_pop_4g5g, fibra, densidade_smp, densidade_scm e adensamento_estacoes.
-</p>
+<ul>
+<li>
+Cobertura populacional 4G/5G
+</li>
+<li>
+Fibra óptica
+</li>
+<li>
+Densidade SMP
+</li>
+<li>
+Densidade SCM
+</li>
+<li>
+Adensamento de estações
+</li>
+</ul>
 </div>
 <div class="card">
 <h3>
@@ -662,10 +661,7 @@ sem problema relevante
 </tbody>
 </table>
 <div class="note">
-Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática.
-</div>
-<div class="note">
-<p>Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code>car</code> no R.</p>
+Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática. Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code>car</code> no R.
 </div>
 </section>
 <section id="diagnóstico-observados-x-ajustados" class="slide level2">
@@ -680,7 +676,6 @@ A proximidade dos pontos com a diagonal sugere visualmente um excelente ajuste d
 </section>
 <section id="gráfico-de-resíduos" class="slide level2">
 <h2>Gráfico de resíduos</h2>
-<p><span class="section-pill">Resultados</span></p>
 <div class="plot">
 <img src="figs/resid_fit.png">
 </div>
@@ -725,14 +720,12 @@ p-valor &lt; 0,001
 </section>
 <section id="normalidade-e-pontos-influentes" class="slide level2">
 <h2>Normalidade e pontos influentes</h2>
-<p><span class="section-pill">Resultados</span></p>
 <div class="two-plots">
 <img src="figs/qq.png"><img src="figs/cook.png">
 </div>
 <p class="caption">
 </p><p>O QQ-plot indica desvios da normalidade nas caudas dos resíduos.</p>
-<p>Como a amostra possui mais de 22 mil observações, esses desvios não comprometem a avaliação global do modelo.</p>
-<p>As distâncias de Cook apresentaram valores baixos, não indicando observações excessivamente influentes.</p>
+<p>Devido ao grande tamanho amostral (n = 22.280), pequenos desvios da normalidade possuem impacto reduzido sobre as inferências do modelo.</p>
 <p></p>
 </section>
 <section id="verificação-dos-pressupostos" class="slide level2">
@@ -803,6 +796,9 @@ O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, expli
 <p><b>Limitações:</b></p>
 <p>O teste de Breusch-Pagan indicou heterocedasticidade nos resíduos.</p>
 <p>Além disso, os resultados representam associações estatísticas e não permitem concluir relações de causalidade.</p>
+<p>
+Os resultados sugerem que investimentos em infraestrutura digital estão fortemente associados a melhores níveis de conectividade municipal.
+</p>
 </div>
 </section>
 <section id="section" class="slide level2">
