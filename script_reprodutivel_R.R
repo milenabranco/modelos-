@@ -57,3 +57,70 @@ cat(
   "\nGraus de liberdade =", bp$parameter,
   "\np-valor =", format(bp$p.value, scientific = TRUE)
 )
+
+
+modelo_final <- lm(
+  ibc ~ cobertura_pop_4g5g_z + fibra_z +
+    densidade_smp_z + hhi_smp_z +
+    densidade_scm_z + hhi_scm_z +
+    adensamento_estacoes_z + ano,
+  data = dados
+)
+
+dados$res2 <- residuals(modelo_final)^2
+
+modelo_var <- lm(
+  res2 ~ cobertura_pop_4g5g_z + fibra_z +
+    densidade_smp_z + hhi_smp_z +
+    densidade_scm_z + hhi_scm_z +
+    adensamento_estacoes_z + ano,
+  data = dados
+)
+
+vhat <- fitted(modelo_var)
+
+vhat[vhat <= 0] <- min(vhat[vhat > 0])
+
+pesos <- 1 / vhat
+
+modelo_mqp <- lm(
+  ibc ~ cobertura_pop_4g5g_z + fibra_z +
+    densidade_smp_z + hhi_smp_z +
+    densidade_scm_z + hhi_scm_z +
+    adensamento_estacoes_z + ano,
+  data = dados,
+  weights = pesos
+)
+
+summary(modelo_final)
+
+summary(modelo_mqp)
+library(lmtest)
+
+bptest(modelo_final)
+
+bptest(modelo_mqp)
+par(mfrow = c(1,2))
+
+plot(
+  fitted(modelo_final),
+  resid(modelo_final)
+)
+
+plot(
+  fitted(modelo_mqp),
+  resid(modelo_mqp)
+)
+dev.off()
+plot(fitted(modelo_final), resid(modelo_final),
+     xlab = "Valores ajustados",
+     ylab = "Resíduos",
+     main = "Resíduos vs Ajustados - MQO")
+
+abline(h = 0, lty = 2)
+library(lmtest)
+library(sandwich)
+
+coeftest(modelo_final, vcov = vcovHC(modelo_final, type = "HC1"))
+
+summary(modelo_final)

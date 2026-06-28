@@ -204,7 +204,7 @@ Municípios e UFs podem apresentar níveis diferentes de infraestrutura digital.
 Questão estatística
 </h3>
 <p>
-O IBC permite investigar quais dimensões de infraestrutura e competitividade se associam ao desempenho municipal.
+O IBC permite investigar quais variáveis explicativas contribuem para explicar a variabilidade observada do índice entre os municípios brasileiros.
 </p>
 </div>
 </div>
@@ -229,7 +229,7 @@ O IBC permite investigar quais dimensões de infraestrutura e competitividade se
 Quais variáveis explicativas contribuem para explicar a variabilidade do Índice Brasileiro de Conectividade dos municípios brasileiros entre 2021 e 2024?
 </div>
 <div class="note">
-<b>Hipótese inicial:</b> maior cobertura 4G/5G, presença de fibra e densidade de serviços devem estar associadas a maiores valores de IBC.
+<b>Hipótese inicial:</b> maior cobertura 4G/5G, presença de fibra e densidade de serviços devem contribuir para explicar a variabilidade do IBC.
 </div>
 </section>
 <section id="objetivo-do-estudo" class="slide level2">
@@ -249,7 +249,7 @@ Ajustar um modelo de regressão linear múltipla tendo o IBC como variável resp
 Objetivos específicos
 </h3>
 <p>
-Descrever as variáveis, avaliar gráficos de dispersão, ajustar modelos, examinar summary, ANOVA, FIV e resíduos.
+Realizar análise exploratória dos dados, ajustar o modelo de regressão linear múltipla, estimar os parâmetros, avaliar a significância dos coeficientes e verificar os pressupostos do modelo.
 </p>
 </div>
 </div>
@@ -272,7 +272,7 @@ Descrever as variáveis, avaliar gráficos de dispersão, ajustar modelos, exami
 </div>
 </div>
 <div class="note" style="margin-top:34px;">
-A base utilizada não é nativa do R e contém observações para todos os municípios brasileiros entre 2021 e 2024, totalizando 22.280 observações município-ano.
+A base utilizada contém observações para todos os municípios brasileiros entre 2021 e 2024, totalizando 22.280 observações município-ano.
 </div>
 </section>
 <section id="variáveis-utilizadas" class="slide level2">
@@ -284,7 +284,10 @@ A base utilizada não é nativa do R e contém observações para todos os munic
 Variável resposta
 </h3>
 <p>
-<b>ibc</b><br>Índice Brasileiro de Conectividade.
+<b>ibc</b><br> Índice Brasileiro de Conectividade.
+</p>
+<p>
+<b>Natureza:</b> quantitativa contínua.
 </p>
 </div>
 <div class="card">
@@ -293,19 +296,19 @@ Infraestrutura
 </h3>
 <ul>
 <li>
-Cobertura populacional 4G/5G
+Cobertura populacional 4G/5G <i>(contínua)</i>
 </li>
 <li>
-Fibra óptica
+Fibra óptica <i>(dicotômica)</i>
 </li>
 <li>
-Densidade SMP
+Densidade SMP <i>(contínua)</i>
 </li>
 <li>
-Densidade SCM
+Densidade SCM <i>(contínua)</i>
 </li>
 <li>
-Adensamento de estações
+Adensamento de estações <i>(contínua)</i>
 </li>
 </ul>
 </div>
@@ -313,9 +316,17 @@ Adensamento de estações
 <h3>
 Competitividade e tempo
 </h3>
-<p>
-hhi_smp, hhi_scm e ano da observação.
-</p>
+<ul>
+<li>
+HHI SMP <i>(contínua)</i>
+</li>
+<li>
+HHI SCM <i>(contínua)</i>
+</li>
+<li>
+Ano da observação <i>(fator)</i>
+</li>
+</ul>
 </div>
 </div>
 </section>
@@ -339,7 +350,7 @@ Seja Y o IBC. O modelo considera Y como variável resposta explicada pelas vari�
 Estimação e diagnóstico
 </h3>
 <p>
-Foram usados mínimos quadrados, summary, ANOVA, FIV, resíduos, QQ-plot e distância de Cook.
+Foi ajustado um modelo de regressão linear múltipla. Os coeficientes foram estimados pelo método dos mínimos quadrados e a adequação do modelo foi avaliada por meio da ANOVA, análise dos resíduos, distância de Cook, teste de Breusch-Pagan e FIV.
 </p>
 </div>
 </div>
@@ -351,7 +362,7 @@ Foram usados mínimos quadrados, summary, ANOVA, FIV, resíduos, QQ-plot e dist�
 IBC = β0 + β1 Cobertura4G/5G + β2 Fibra + β3 Dens.SMP + β4 HHI.SMP + β5 Dens.SCM + β6 HHI.SCM + β7 Estações + Ano + ε
 </div>
 <div class="note">
-As variáveis quantitativas foram padronizadas no modelo final para facilitar a comparação da magnitude dos coeficientes.
+<p>As variáveis quantitativas foram padronizadas, permitindo comparar diretamente a magnitude dos coeficientes estimados.</p>
 </div>
 </section>
 <section id="pressupostos-avaliados" class="slide level2">
@@ -507,7 +518,7 @@ Fibra
 Interpretação
 </h3>
 <p>
-</p><p>Mantidas constantes as demais variáveis do modelo, aumentos na variável fibra estão associados a aumentos esperados no Índice Brasileiro de Conectividade.</p>
+</p><p>Mantidas constantes as demais variáveis do modelo, aumentos na variável fibra produzem aumentos esperados no Índice Brasileiro de Conectividade.</p>
 <p></p>
 </div>
 </div>
