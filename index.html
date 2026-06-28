@@ -209,6 +209,34 @@ O IBC permite investigar quais dimensões de infraestrutura e competitividade se
 </div>
 </div>
 </section>
+<section id="o-tema-na-literatura" class="slide level2">
+<h2>O tema na literatura</h2>
+<p><span class="section-pill">Introdução</span></p>
+<div class="cards2">
+<div class="card">
+<h3>
+Importância da conectividade
+</h3>
+<p>
+</p><p>A literatura e os relatórios da Anatel destacam que a conectividade é um elemento fundamental para o acesso à informação, educação, serviços públicos digitais e oportunidades econômicas.</p>
+<p></p>
+</div>
+<div class="card">
+<h3>
+Índice Brasileiro de Conectividade
+</h3>
+<p>
+</p><p>O IBC foi desenvolvido pela Anatel para comparar os estágios de conectividade dos municípios e estados brasileiros a partir de indicadores de infraestrutura e acesso aos serviços de telecomunicações.</p>
+<p></p>
+</div>
+</div>
+<div class="note">
+<p>Segundo a Anatel, o IBC constitui uma ferramenta objetiva para monitorar a evolução da infraestrutura digital, comparar municípios ao longo do tempo e subsidiar políticas públicas voltadas à expansão da conectividade no Brasil.</p>
+</div>
+<div class="ref-slide">
+<p><b>Fonte:</b> Anatel (2025), Índice Brasileiro de Conectividade; Anatel (2025), Análise dos Resultados do IBC.</p>
+</div>
+</section>
 <section id="problema-de-pesquisa" class="slide level2">
 <h2>Problema de pesquisa</h2>
 <p><span class="section-pill">Introdução</span></p>
@@ -296,7 +324,7 @@ hhi_smp, hhi_scm e ano da observação.
 <h2>Metodologia adotada</h2>
 <p><span class="section-pill">Material e Métodos</span></p>
 <div class="formula">
-y = Xβ + ε
+Yᵢ = β₀ + β₁Xᵢ₁ + … + βₚXᵢₚ + εᵢ
 </div>
 <div class="cards2">
 <div class="card">
@@ -463,8 +491,8 @@ F-statistic: 1.179e+05 on 10 and 22269 DF,  p-value: &lt; 2.2e-16</code></pre>
 Coeficientes positivos indicam aumento esperado no IBC quando a variável explicativa aumenta, mantendo as demais variáveis constantes. Para p-valor inferior a 0,05, rejeita-se H0: βj = 0.
 </div>
 </section>
-<section id="interpretação-dos-coeficientes" class="slide level2">
-<h2>Interpretação dos coeficientes</h2>
+<section id="exemplo-de-interpretação-fibra" class="slide level2">
+<h2>Exemplo de interpretação: Fibra</h2>
 <p><span class="section-pill">Resultados</span></p>
 <div class="cards2">
 <div class="card highlight">
@@ -522,7 +550,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 Resultado
 </h3>
 <p>
-</p><p>Todos os p-valores foram inferiores a 0,001.</p>
+</p><p>O teste F global apresentou p-valor inferior a 0,001.</p>
 <p></p>
 </div>
 <div class="card">
@@ -636,6 +664,9 @@ sem problema relevante
 <div class="note">
 Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática.
 </div>
+<div class="note">
+<p>Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code>car</code> no R.</p>
+</div>
 </section>
 <section id="diagnóstico-observados-x-ajustados" class="slide level2">
 <h2>Diagnóstico: observados x ajustados</h2>
@@ -688,7 +719,8 @@ p-valor &lt; 0,001
 </div>
 </div>
 <div class="note">
-<p>Como o p-valor foi inferior a 0,05, rejeita-se H₀. Portanto, há indícios de heterocedasticidade nos resíduos.</p>
+<p>Como o p-valor foi inferior a 0,05, rejeita-se H₀. Portanto, há evidências estatísticas de heterocedasticidade nos resíduos.</p>
+<p>Apesar disso, devido ao grande tamanho amostral (n = 22.280), os coeficientes permanecem estáveis e a interpretação geral do modelo não é comprometida.</p>
 </div>
 </section>
 <section id="normalidade-e-pontos-influentes" class="slide level2">
@@ -752,16 +784,19 @@ Breusch-Pagan: p &lt; 0,001
 Principais resultados
 </h3>
 <p>
-</p><p>Fibra, cobertura 4G/5G, densidade SMP, densidade SCM e adensamento de estações apresentaram associação positiva e estatisticamente significativa com o IBC.</p>
-<p></p>
+A variável fibra apresentou o maior efeito padronizado entre as variáveis explicativas, indicando forte associação com o Índice Brasileiro de Conectividade.
+</p>
+<p>
+A cobertura 4G/5G também apresentou contribuição relevante para explicar a variabilidade do IBC.
+</p>
 </div>
 <div class="card">
 <h3>
 Modelo final
 </h3>
 <p>
-</p><p>O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, explicando aproximadamente 98,15% da variabilidade observada do IBC.</p>
-<p></p>
+O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, explicando aproximadamente 98,15% da variabilidade observada do índice.
+</p>
 </div>
 </div>
 <div class="note" style="margin-top:24px;">

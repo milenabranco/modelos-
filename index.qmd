@@ -91,6 +91,49 @@ modelo_final <- lm(
 <div class="card"><h3>Questão estatística</h3><p>O IBC permite investigar quais dimensões de infraestrutura e competitividade se associam ao desempenho municipal.</p></div>
 </div>
 
+## O tema na literatura
+
+<span class="section-pill">Introdução</span>
+
+<div class="cards2">
+
+<div class="card">
+
+<h3>Importância da conectividade</h3>
+
+<p>
+
+A literatura e os relatórios da Anatel destacam que a conectividade é um elemento fundamental para o acesso à informação, educação, serviços públicos digitais e oportunidades econômicas.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Índice Brasileiro de Conectividade</h3>
+
+<p>
+
+O IBC foi desenvolvido pela Anatel para comparar os estágios de conectividade dos municípios e estados brasileiros a partir de indicadores de infraestrutura e acesso aos serviços de telecomunicações.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="note">
+
+Segundo a Anatel, o IBC constitui uma ferramenta objetiva para monitorar a evolução da infraestrutura digital, comparar municípios ao longo do tempo e subsidiar políticas públicas voltadas à expansão da conectividade no Brasil.
+
+</div>
+
+<div class="ref-slide">
+
+<b>Fonte:</b> Anatel (2025), Índice Brasileiro de Conectividade; Anatel (2025), Análise dos Resultados do IBC.
+
+</div>
 ## Problema de pesquisa
 
 <span class="section-pill">Introdução</span>
@@ -135,7 +178,7 @@ modelo_final <- lm(
 
 <span class="section-pill">Material e Métodos</span>
 
-<div class="formula">y = Xβ + ε</div>
+<div class="formula">Yᵢ = β₀ + β₁Xᵢ₁ + ... + βₚXᵢₚ + εᵢ</div>
 
 <div class="cards2">
 <div class="card"><h3>Modelo linear múltiplo</h3><p>Seja Y o IBC. O modelo considera Y como variável resposta explicada pelas variáveis de infraestrutura, competitividade e pelo controle temporal de ano.</p></div>
@@ -247,7 +290,7 @@ O teste F global foi significativo (p < 2,2×10⁻¹⁶), indicando que pelo men
 
 <div class="note">Coeficientes positivos indicam aumento esperado no IBC quando a variável explicativa aumenta, mantendo as demais variáveis constantes. Para p-valor inferior a 0,05, rejeita-se H0: βj = 0.</div>
 
-## Interpretação dos coeficientes
+## Exemplo de interpretação: Fibra
 
 <span class="section-pill">Resultados</span>
 
@@ -309,7 +352,7 @@ H₁: Pelo menos um coeficiente é diferente de zero.
 
 <p>
 
-Todos os p-valores foram inferiores a 0,001.
+O teste F global apresentou p-valor inferior a 0,001.
 
 </p>
 
@@ -346,6 +389,11 @@ As variáveis explicativas apresentam contribuição estatisticamente significat
 
 <div class="note">Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinearidade problemática.</div>
 
+<div class="note">
+
+Os valores foram obtidos por meio da função <code>vif()</code> do pacote <code>car</code> no R.
+
+</div>
 ## Diagnóstico: observados x ajustados
 
 <span class="section-pill">Resultados</span>
@@ -387,7 +435,9 @@ As variáveis explicativas apresentam contribuição estatisticamente significat
 
 <div class="note">
 
-Como o p-valor foi inferior a 0,05, rejeita-se H₀. Portanto, há indícios de heterocedasticidade nos resíduos.
+Como o p-valor foi inferior a 0,05, rejeita-se H₀. Portanto, há evidências estatísticas de heterocedasticidade nos resíduos.
+
+Apesar disso, devido ao grande tamanho amostral (n = 22.280), os coeficientes permanecem estáveis e a interpretação geral do modelo não é comprometida.
 
 </div>
 
@@ -441,6 +491,7 @@ As distâncias de Cook apresentaram valores baixos, não indicando observações
 </div>
 
 ## Conclusões
+
 <div class="cards2">
 
 <div class="card">
@@ -448,9 +499,11 @@ As distâncias de Cook apresentaram valores baixos, não indicando observações
 <h3>Principais resultados</h3>
 
 <p>
+A variável fibra apresentou o maior efeito padronizado entre as variáveis explicativas, indicando forte associação com o Índice Brasileiro de Conectividade.
+</p>
 
-Fibra, cobertura 4G/5G, densidade SMP, densidade SCM e adensamento de estações apresentaram associação positiva e estatisticamente significativa com o IBC.
-
+<p>
+A cobertura 4G/5G também apresentou contribuição relevante para explicar a variabilidade do IBC.
 </p>
 
 </div>
@@ -460,9 +513,7 @@ Fibra, cobertura 4G/5G, densidade SMP, densidade SCM e adensamento de estações
 <h3>Modelo final</h3>
 
 <p>
-
-O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, explicando aproximadamente 98,15% da variabilidade observada do IBC.
-
+O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, explicando aproximadamente 98,15% da variabilidade observada do índice.
 </p>
 
 </div>
@@ -478,6 +529,5 @@ O teste de Breusch-Pagan indicou heterocedasticidade nos resíduos.
 Além disso, os resultados representam associações estatísticas e não permitem concluir relações de causalidade.
 
 </div>
-
 ##
 Fim
