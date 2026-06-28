@@ -478,3 +478,6 @@ O teste de Breusch-Pagan indicou heterocedasticidade nos resíduos.
 Além disso, os resultados representam associações estatísticas e não permitem concluir relações de causalidade.
 
 </div>
+
+##
+Fim
