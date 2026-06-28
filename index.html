@@ -340,7 +340,7 @@ Pressupostos avaliados
 Linearidade
 </li>
 <li>
-Independência dos erros
+Pontos influentes
 </li>
 <li>
 Homocedasticidade
@@ -403,246 +403,62 @@ A comparação por ano justifica a inclusão do controle temporal no modelo.
 </section>
 <section id="saída-do-r-summarymodelo_final" class="slide level2">
 <h2>Saída do R: summary(modelo_final)</h2>
-<p><span class="section-pill">Resultados</span></p>
-<pre class="console">Call:
-lm(formula = ibc ~ cobertura_pop_4g5g_z + fibra_z + densidade_smp_z +
-    hhi_smp_z + densidade_scm_z + hhi_scm_z + adensamento_estacoes_z + ano,
-    data = dados)
+<div class="smaller">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ibc ~ cobertura_pop_4g5g_z + fibra_z + densidade_smp_z + 
+    hhi_smp_z + densidade_scm_z + hhi_scm_z + adensamento_estacoes_z + 
+    ano, data = dados)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12.1926  -0.5528   0.0860   0.5979   8.8752 
+
+Coefficients:
+                       Estimate Std. Error  t value Pr(&gt;|t|)    
+(Intercept)            51.75842    0.02667 1940.351  &lt; 2e-16 ***
+cobertura_pop_4g5g_z    3.63148    0.01606  226.163  &lt; 2e-16 ***
+fibra_z                 7.78323    0.01405  553.933  &lt; 2e-16 ***
+densidade_smp_z         3.39335    0.01733  195.831  &lt; 2e-16 ***
+hhi_smp_z               1.62337    0.01426  113.878  &lt; 2e-16 ***
+densidade_scm_z         2.81229    0.01627  172.892  &lt; 2e-16 ***
+hhi_scm_z               1.24731    0.01304   95.659  &lt; 2e-16 ***
+adensamento_estacoes_z  2.42889    0.01605  151.360  &lt; 2e-16 ***
+ano2022                 0.10927    0.03686    2.965  0.00303 ** 
+ano2023                -0.01341    0.03670   -0.365  0.71479    
+ano2024                 0.49583    0.04648   10.667  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 1.888 on 22269 degrees of freedom
-Multiple R-squared: 0.9815,    Adjusted R-squared: 0.9815
-F-statistic: 1.179e+05 on 10 and 22269 DF,  p-value: &lt; 2.2e-16</pre>
+Multiple R-squared:  0.9815,    Adjusted R-squared:  0.9815 
+F-statistic: 1.179e+05 on 10 and 22269 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="principais-resultados-do-modelo" class="slide level2">
+<h2>Principais resultados do modelo</h2>
 <div class="cards4 smallcards">
 <div class="metric">
-<b>R² ajustado</b><span>0,9815</span>
+<p><b>R² ajustado</b> <span>0,9815</span></p>
 </div>
 <div class="metric">
-<b>Erro residual</b><span>1,888</span>
+<p><b>Erro residual</b> <span>1,888</span></p>
 </div>
 <div class="metric">
-<b>F global</b><span>117.920</span>
+<p><b>F global</b> <span>117.920</span></p>
 </div>
 <div class="metric">
-<b>p-valor</b><span>&lt; 2,2e-16</span>
+<p><b>p-valor</b> <span>&lt; 2,2e-16</span></p>
 </div>
 </div>
 <div class="note">
 <p>O modelo apresentou R² ajustado igual a 0,9815, indicando que aproximadamente 98,15% da variabilidade observada do IBC é explicada pelas variáveis incluídas no modelo.</p>
+<p>O teste F global foi significativo (p &lt; 2,2×10⁻¹⁶), indicando que pelo menos uma das variáveis explicativas contribui para explicar a variabilidade do IBC.</p>
 </div>
-</section>
-<section id="coeficientes-summarymodelo_final" class="slide level2">
-<h2>Coeficientes: summary(modelo_final)</h2>
-<p><span class="section-pill">Resultados</span></p>
-<table class="tbl compact">
-<thead>
-<tr>
-<th>
-Termo
-</th>
-<th>
-Estimativa
-</th>
-<th>
-Erro padrão
-</th>
-<th>
-t
-</th>
-<th>
-p-valor
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Intercepto
-</td>
-<td>
-51,758
-</td>
-<td>
-0,027
-</td>
-<td>
-1940,4
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Ano 2022
-</td>
-<td>
-0,109
-</td>
-<td>
-0,037
-</td>
-<td>
-3,0
-</td>
-<td>
-0,003
-</td>
-</tr>
-<tr>
-<td>
-Ano 2023
-</td>
-<td>
--0,013
-</td>
-<td>
-0,037
-</td>
-<td>
--0,4
-</td>
-<td>
-0,715
-</td>
-</tr>
-<tr>
-<td>
-Ano 2024
-</td>
-<td>
-0,496
-</td>
-<td>
-0,046
-</td>
-<td>
-10,7
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Cobertura 4G/5G (z)
-</td>
-<td>
-3,631
-</td>
-<td>
-0,016
-</td>
-<td>
-226,2
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Fibra (z)
-</td>
-<td>
-7,783
-</td>
-<td>
-0,014
-</td>
-<td>
-553,9
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Densidade SMP (z)
-</td>
-<td>
-3,393
-</td>
-<td>
-0,017
-</td>
-<td>
-195,8
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-HHI SMP (z)
-</td>
-<td>
-1,623
-</td>
-<td>
-0,014
-</td>
-<td>
-113,9
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Densidade SCM (z)
-</td>
-<td>
-2,812
-</td>
-<td>
-0,016
-</td>
-<td>
-172,9
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-HHI SCM (z)
-</td>
-<td>
-1,247
-</td>
-<td>
-0,013
-</td>
-<td>
-95,7
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Adensamento estações (z)
-</td>
-<td>
-2,429
-</td>
-<td>
-0,016
-</td>
-<td>
-151,4
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-</tbody>
-</table>
 <div class="note">
 Coeficientes positivos indicam aumento esperado no IBC quando a variável explicativa aumenta, mantendo as demais variáveis constantes. Para p-valor inferior a 0,05, rejeita-se H0: βj = 0.
 </div>
@@ -671,191 +487,53 @@ Interpretação
 </section>
 <section id="anova-do-modelo-final" class="slide level2">
 <h2>ANOVA do modelo final</h2>
-<p><span class="section-pill">Resultados</span></p>
-<table class="tbl small">
-<thead>
-<tr>
-<th>
-Fonte
-</th>
-<th>
-SQ
-</th>
-<th>
-gl
-</th>
-<th>
-F
-</th>
-<th>
-p-valor
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Ano
-</td>
-<td>
-493,8
-</td>
-<td>
-3
-</td>
-<td>
-46,2
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Cobertura 4G/5G
-</td>
-<td>
-182.334,3
-</td>
-<td>
-1
-</td>
-<td>
-51.149,7
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Fibra
-</td>
-<td>
-1.093.803,5
-</td>
-<td>
-1
-</td>
-<td>
-306.841,3
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Densidade SMP
-</td>
-<td>
-136.706,8
-</td>
-<td>
-1
-</td>
-<td>
-38.349,9
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-HHI SMP
-</td>
-<td>
-46.227,7
-</td>
-<td>
-1
-</td>
-<td>
-12.968,1
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Densidade SCM
-</td>
-<td>
-106.555,6
-</td>
-<td>
-1
-</td>
-<td>
-29.891,7
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-HHI SCM
-</td>
-<td>
-32.619,3
-</td>
-<td>
-1
-</td>
-<td>
-9.150,6
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Adensamento estações
-</td>
-<td>
-81.666,7
-</td>
-<td>
-1
-</td>
-<td>
-22.909,7
-</td>
-<td>
-&lt;0,001
-</td>
-</tr>
-<tr>
-<td>
-Resíduo
-</td>
-<td>
-79.382,8
-</td>
-<td>
-22269
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="saída-do-r-anovamodelo_final" class="slide level2">
-<h2>Saída do R: anova(modelo_final)</h2>
-<p><span class="section-pill">Resultados</span></p>
-<pre class="console">
-anova(modelo_final)
+<div class="smaller">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
 
-</pre>
+Response: ibc
+                          Df  Sum Sq Mean Sq    F value    Pr(&gt;F)    
+cobertura_pop_4g5g_z       1 1918079 1918079 538072.691 &lt; 2.2e-16 ***
+fibra_z                    1 1612229 1612229 452273.688 &lt; 2.2e-16 ***
+densidade_smp_z            1  236780  236780  66423.125 &lt; 2.2e-16 ***
+hhi_smp_z                  1   33537   33537   9407.923 &lt; 2.2e-16 ***
+densidade_scm_z            1  258190  258190  72429.150 &lt; 2.2e-16 ***
+hhi_scm_z                  1   26870   26870   7537.712 &lt; 2.2e-16 ***
+adensamento_estacoes_z     1  117354  117354  32920.904 &lt; 2.2e-16 ***
+ano                        3     494     165     46.176 &lt; 2.2e-16 ***
+Residuals              22269   79383       4                         
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretação-da-anova" class="slide level2">
+<h2>Interpretação da ANOVA</h2>
 <div class="note">
-<p>A ANOVA confirma que todas as variáveis apresentaram contribuição estatisticamente significativa para o ajuste do modelo.</p>
+<p><b>Hipóteses do teste F</b><br><br></p>
+<p>H₀: β₁ = β₂ = … = βₚ = 0<br></p>
+<p>H₁: Pelo menos um coeficiente é diferente de zero.</p>
+</div>
+<div class="cards2">
+<div class="card">
+<h3>
+Resultado
+</h3>
+<p>
+</p><p>Todos os p-valores foram inferiores a 0,001.</p>
+<p></p>
+</div>
+<div class="card">
+<h3>
+Conclusão
+</h3>
+<p>
+</p><p>Rejeita-se H₀.</p>
+<p>As variáveis explicativas apresentam contribuição estatisticamente significativa para explicar a variabilidade do IBC.</p>
+<p></p>
+</div>
 </div>
 </section>
 <section id="multicolinearidade-fiv" class="slide level2">
@@ -966,7 +644,7 @@ Como todos os FIV ficaram abaixo de 5, não há evidência forte de multicolinea
 <img src="figs/obs_fit.png">
 </div>
 <p class="caption">
-A proximidade dos pontos com a diagonal confirma visualmente o bom ajuste do modelo.
+A proximidade dos pontos com a diagonal sugere visualmente um excelente ajuste do modelo.
 </p>
 </section>
 <section id="gráfico-de-resíduos" class="slide level2">
@@ -1020,8 +698,10 @@ p-valor &lt; 0,001
 <img src="figs/qq.png"><img src="figs/cook.png">
 </div>
 <p class="caption">
-O QQ-plot indica desvios da normalidade nas caudas dos resíduos. Como a amostra é muito grande, esses desvios não comprometem substancialmente as inferências do modelo. As distâncias de Cook apresentaram valores baixos, não indicando observações excessivamente influentes.
-</p>
+</p><p>O QQ-plot indica desvios da normalidade nas caudas dos resíduos.</p>
+<p>Como a amostra possui mais de 22 mil observações, esses desvios não comprometem a avaliação global do modelo.</p>
+<p>As distâncias de Cook apresentaram valores baixos, não indicando observações excessivamente influentes.</p>
+<p></p>
 </section>
 <section id="verificação-dos-pressupostos" class="slide level2">
 <h2>Verificação dos pressupostos</h2>
@@ -1066,27 +746,28 @@ Breusch-Pagan: p &lt; 0,001
 </section>
 <section id="conclusões" class="slide level2">
 <h2>Conclusões</h2>
-<p><span class="section-pill">Conclusão</span></p>
 <div class="cards2">
 <div class="card">
 <h3>
 Principais resultados
 </h3>
 <p>
-Fibra, cobertura 4G/5G, densidades SMP/SCM e adensamento de estações apresentaram coeficientes positivos e estatisticamente significativos no modelo final.
-</p>
+</p><p>Fibra, cobertura 4G/5G, densidade SMP, densidade SCM e adensamento de estações apresentaram associação positiva e estatisticamente significativa com o IBC.</p>
+<p></p>
 </div>
 <div class="card">
 <h3>
 Modelo final
 </h3>
 <p>
-O modelo apresentou alto poder explicativo, com R² ajustado igual a <b>0,9815</b>.
-</p>
+</p><p>O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, explicando aproximadamente 98,15% da variabilidade observada do IBC.</p>
+<p></p>
 </div>
 </div>
 <div class="note" style="margin-top:24px;">
-<b>Limitação:</b> os resultados indicam associação estatística. Não se conclui causalidade apenas pelo ajuste de regressão linear.
+<p><b>Limitações:</b></p>
+<p>O teste de Breusch-Pagan indicou heterocedasticidade nos resíduos.</p>
+<p>Além disso, os resultados representam associações estatísticas e não permitem concluir relações de causalidade.</p>
 </div>
 
 </section>
@@ -1305,6 +986,82 @@ O modelo apresentou alto poder explicativo, com R² ajustado igual a <b>0,9815</
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

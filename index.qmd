@@ -20,6 +20,48 @@ execute:
   warning: false
   message: false
 ---
+```{r}
+
+# Pacotes necessários
+# install.packages(c("readr", "dplyr", "ggplot2", "car"))
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(car)
+
+# Leitura da base externa ao R
+dados <- read_csv("br_anatel_indice_brasileiro_conectividade_municipio.csv.gz")
+
+# Variáveis quantitativas usadas no modelo
+vars <- c(
+  "cobertura_pop_4g5g", "fibra", "densidade_smp", "hhi_smp",
+  "densidade_scm", "hhi_scm", "adensamento_estacoes"
+)
+
+# Padronização das variáveis quantitativas para comparar efeitos
+dados <- dados %>%
+  mutate(
+    across(all_of(vars), ~ as.numeric(scale(.x)), .names = "{.col}_z"),
+    ano = factor(ano)
+  )
+
+# Modelo inicial sem padronização
+modelo_inicial <- lm(
+  ibc ~ cobertura_pop_4g5g + fibra + densidade_smp + hhi_smp +
+    densidade_scm + hhi_scm + adensamento_estacoes + ano,
+  data = dados
+)
+
+# Modelo final com variáveis padronizadas
+modelo_final <- lm(
+  ibc ~ cobertura_pop_4g5g_z + fibra_z + densidade_smp_z + hhi_smp_z +
+    densidade_scm_z + hhi_scm_z + adensamento_estacoes_z + ano,
+  data = dados
+)
+
+
+```
+
 
 ## Índice Brasileiro de Conectividade {.cover-slide}
 
@@ -118,7 +160,7 @@ execute:
 
 <ul>
 <li>Linearidade</li>
-<li>Independência dos erros</li>
+<li>Pontos influentes</li>
 <li>Homocedasticidade</li>
 <li>Normalidade dos resíduos</li>
 <li>Ausência de multicolinearidade severa</li>
@@ -161,50 +203,47 @@ execute:
 <div class="plot"><img src="figs/box_ano.png"></div>
 <p class="caption">A comparação por ano justifica a inclusão do controle temporal no modelo.</p>
 
-
 ## Saída do R: summary(modelo_final)
 
-<span class="section-pill">Resultados</span>
+::: {.smaller}
 
-<pre class="console">Call:
-lm(formula = ibc ~ cobertura_pop_4g5g_z + fibra_z + densidade_smp_z +
-    hhi_smp_z + densidade_scm_z + hhi_scm_z + adensamento_estacoes_z + ano,
-    data = dados)
-
-Residual standard error: 1.888 on 22269 degrees of freedom
-Multiple R-squared: 0.9815,    Adjusted R-squared: 0.9815
-F-statistic: 1.179e+05 on 10 and 22269 DF,  p-value: < 2.2e-16</pre>
+```{r}
+summary(modelo_final)
+```
+:::
+## Principais resultados do modelo
 
 <div class="cards4 smallcards">
-<div class="metric"><b>R² ajustado</b><span>0,9815</span></div>
-<div class="metric"><b>Erro residual</b><span>1,888</span></div>
-<div class="metric"><b>F global</b><span>117.920</span></div>
-<div class="metric"><b>p-valor</b><span>&lt; 2,2e-16</span></div>
+
+<div class="metric">
+<b>R² ajustado</b>
+<span>0,9815</span>
+</div>
+
+<div class="metric">
+<b>Erro residual</b>
+<span>1,888</span>
+</div>
+
+<div class="metric">
+<b>F global</b>
+<span>117.920</span>
+</div>
+
+<div class="metric">
+<b>p-valor</b>
+<span>&lt; 2,2e-16</span>
+</div>
+
 </div>
 
 <div class="note">
 
 O modelo apresentou R² ajustado igual a 0,9815, indicando que aproximadamente 98,15% da variabilidade observada do IBC é explicada pelas variáveis incluídas no modelo.
 
+O teste F global foi significativo (p < 2,2×10⁻¹⁶), indicando que pelo menos uma das variáveis explicativas contribui para explicar a variabilidade do IBC.
+
 </div>
-
-## Coeficientes: summary(modelo_final)
-
-<span class="section-pill">Resultados</span>
-
-<table class="tbl compact"><thead><tr><th>Termo</th><th>Estimativa</th><th>Erro padrão</th><th>t</th><th>p-valor</th></tr></thead><tbody>
-<tr><td>Intercepto</td><td>51,758</td><td>0,027</td><td>1940,4</td><td>&lt;0,001</td></tr>
-<tr><td>Ano 2022</td><td>0,109</td><td>0,037</td><td>3,0</td><td>0,003</td></tr>
-<tr><td>Ano 2023</td><td>-0,013</td><td>0,037</td><td>-0,4</td><td>0,715</td></tr>
-<tr><td>Ano 2024</td><td>0,496</td><td>0,046</td><td>10,7</td><td>&lt;0,001</td></tr>
-<tr><td>Cobertura 4G/5G (z)</td><td>3,631</td><td>0,016</td><td>226,2</td><td>&lt;0,001</td></tr>
-<tr><td>Fibra (z)</td><td>7,783</td><td>0,014</td><td>553,9</td><td>&lt;0,001</td></tr>
-<tr><td>Densidade SMP (z)</td><td>3,393</td><td>0,017</td><td>195,8</td><td>&lt;0,001</td></tr>
-<tr><td>HHI SMP (z)</td><td>1,623</td><td>0,014</td><td>113,9</td><td>&lt;0,001</td></tr>
-<tr><td>Densidade SCM (z)</td><td>2,812</td><td>0,016</td><td>172,9</td><td>&lt;0,001</td></tr>
-<tr><td>HHI SCM (z)</td><td>1,247</td><td>0,013</td><td>95,7</td><td>&lt;0,001</td></tr>
-<tr><td>Adensamento estações (z)</td><td>2,429</td><td>0,016</td><td>151,4</td><td>&lt;0,001</td></tr>
-</tbody></table>
 
 <div class="note">Coeficientes positivos indicam aumento esperado no IBC quando a variável explicativa aumenta, mantendo as demais variáveis constantes. Para p-valor inferior a 0,05, rejeita-se H0: βj = 0.</div>
 
@@ -242,36 +281,55 @@ Mantidas constantes as demais variáveis do modelo, aumentos na variável fibra 
 
 ## ANOVA do modelo final
 
-<span class="section-pill">Resultados</span>
+::: {.smaller}
 
-<table class="tbl small"><thead><tr><th>Fonte</th><th>SQ</th><th>gl</th><th>F</th><th>p-valor</th></tr></thead><tbody>
-<tr><td>Ano</td><td>493,8</td><td>3</td><td>46,2</td><td>&lt;0,001</td></tr>
-<tr><td>Cobertura 4G/5G</td><td>182.334,3</td><td>1</td><td>51.149,7</td><td>&lt;0,001</td></tr>
-<tr><td>Fibra</td><td>1.093.803,5</td><td>1</td><td>306.841,3</td><td>&lt;0,001</td></tr>
-<tr><td>Densidade SMP</td><td>136.706,8</td><td>1</td><td>38.349,9</td><td>&lt;0,001</td></tr>
-<tr><td>HHI SMP</td><td>46.227,7</td><td>1</td><td>12.968,1</td><td>&lt;0,001</td></tr>
-<tr><td>Densidade SCM</td><td>106.555,6</td><td>1</td><td>29.891,7</td><td>&lt;0,001</td></tr>
-<tr><td>HHI SCM</td><td>32.619,3</td><td>1</td><td>9.150,6</td><td>&lt;0,001</td></tr>
-<tr><td>Adensamento estações</td><td>81.666,7</td><td>1</td><td>22.909,7</td><td>&lt;0,001</td></tr>
-<tr><td>Resíduo</td><td>79.382,8</td><td>22269</td><td></td><td></td></tr>
-</tbody></table>
-## Saída do R: anova(modelo_final)
-
-<span class="section-pill">Resultados</span>
-
-<pre class="console">
-
+```{r}
 anova(modelo_final)
 
-</pre>
+```
+:::
+
+## Interpretação da ANOVA
 
 <div class="note">
 
-A ANOVA confirma que todas as variáveis apresentaram contribuição estatisticamente significativa para o ajuste do modelo.
+<b>Hipóteses do teste F</b><br><br>
+
+H₀: β₁ = β₂ = ... = βₚ = 0<br>
+
+H₁: Pelo menos um coeficiente é diferente de zero.
 
 </div>
 
+<div class="cards2">
 
+<div class="card">
+
+<h3>Resultado</h3>
+
+<p>
+
+Todos os p-valores foram inferiores a 0,001.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Conclusão</h3>
+
+<p>
+
+Rejeita-se H₀.
+
+As variáveis explicativas apresentam contribuição estatisticamente significativa para explicar a variabilidade do IBC.
+
+</p>
+
+</div>
+
+</div>
 ## Multicolinearidade: FIV
 
 <span class="section-pill">Resultados</span>
@@ -293,7 +351,7 @@ A ANOVA confirma que todas as variáveis apresentaram contribuição estatistica
 <span class="section-pill">Resultados</span>
 
 <div class="plot"><img src="figs/obs_fit.png"></div>
-<p class="caption">A proximidade dos pontos com a diagonal confirma visualmente o bom ajuste do modelo.</p>
+<p class="caption">A proximidade dos pontos com a diagonal sugere visualmente um excelente ajuste do modelo.</p>
 
 ## Gráfico de resíduos
 
@@ -339,7 +397,15 @@ Como o p-valor foi inferior a 0,05, rejeita-se H₀. Portanto, há indícios de 
 
 <div class="two-plots"><img src="figs/qq.png"><img src="figs/cook.png"></div>
 
-<p class="caption">O QQ-plot indica desvios da normalidade nas caudas dos resíduos. Como a amostra é muito grande, esses desvios não comprometem substancialmente as inferências do modelo. As distâncias de Cook apresentaram valores baixos, não indicando observações excessivamente influentes.</p>
+<p class="caption">
+
+O QQ-plot indica desvios da normalidade nas caudas dos resíduos.
+
+Como a amostra possui mais de 22 mil observações, esses desvios não comprometem a avaliação global do modelo.
+
+As distâncias de Cook apresentaram valores baixos, não indicando observações excessivamente influentes.
+
+</p>
 
 ## Verificação dos pressupostos
 
@@ -375,13 +441,40 @@ Como o p-valor foi inferior a 0,05, rejeita-se H₀. Portanto, há indícios de 
 </div>
 
 ## Conclusões
-
-<span class="section-pill">Conclusão</span>
-
 <div class="cards2">
- <div class="card"><h3>Principais resultados</h3><p>Fibra, cobertura 4G/5G, densidades SMP/SCM e adensamento de estações apresentaram coeficientes positivos e estatisticamente significativos no modelo final.</p></div>
-<div class="card"><h3>Modelo final</h3><p>O modelo apresentou alto poder explicativo, com R² ajustado igual a <b>0,9815</b>.</p></div>
+
+<div class="card">
+
+<h3>Principais resultados</h3>
+
+<p>
+
+Fibra, cobertura 4G/5G, densidade SMP, densidade SCM e adensamento de estações apresentaram associação positiva e estatisticamente significativa com o IBC.
+
+</p>
+
 </div>
 
-<div class="note" style="margin-top:24px;"><b>Limitação:</b> os resultados indicam associação estatística. Não se conclui causalidade apenas pelo ajuste de regressão linear.</div>
+<div class="card">
 
+<h3>Modelo final</h3>
+
+<p>
+
+O modelo apresentou elevado poder explicativo, com R² ajustado de 0,9815, explicando aproximadamente 98,15% da variabilidade observada do IBC.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="note" style="margin-top:24px;">
+
+<b>Limitações:</b>
+
+O teste de Breusch-Pagan indicou heterocedasticidade nos resíduos.
+
+Além disso, os resultados representam associações estatísticas e não permitem concluir relações de causalidade.
+
+</div>
